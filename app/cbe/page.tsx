@@ -9,7 +9,6 @@ import {
   ShieldCheck,
   Eye,
   EyeOff,
-  Sparkles,
   HelpCircle,
   Delete,
   CheckCircle,
@@ -106,13 +105,6 @@ export default function Home() {
     if (decision === 'pass') setAuthStep('otp');
   };
 
-  const handleQuickDemoFill = () => {
-    setPhoneNumber('912345678');
-    setPinLength(4);
-    setPin('1234');
-    setErrorMessage(null);
-  };
-
   const handleLogout = () => {
     setAuthStep('login');
     setPhoneNumber('');
@@ -146,7 +138,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Header Right: Official Portal Badge & Demo Button */}
+          {/* Header Right: Official Portal Badge */}
           <div className="flex items-center gap-3">
             <div
               id="cbe-official-web-portal-badge"
@@ -159,20 +151,6 @@ export default function Home() {
               <ShieldCheck className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
               <span className="font-semibold text-neutral-900 tracking-tight">Official Verification Portal</span>
             </div>
-
-            {/* Quick Demo Helper Button */}
-            {authStep === 'login' && (
-              <button
-                id="quick-demo-pin-btn"
-                type="button"
-                onClick={handleQuickDemoFill}
-                className="hidden lg:flex items-center gap-1 rounded-xl border border-amber-200/80 bg-amber-50/70 px-2.5 py-1 text-[11px] font-semibold text-[#b5873e] hover:bg-amber-100/70 transition-colors"
-                title="Fill 912345678 and 1234 Demo PIN"
-              >
-                <Sparkles className="h-3 w-3" />
-                <span>Auto-Fill PIN</span>
-              </button>
-            )}
           </div>
         </div>
       </header>
