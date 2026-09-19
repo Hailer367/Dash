@@ -55,7 +55,7 @@ export default function HomePage() {
     return `${digits.slice(0, 3)} ${digits.slice(3, 6)} ${digits.slice(6, 9)}`;
   };
 
-  // Validate Ethiopian phone number (must be 9 digits, starting with 9 or 7)
+  // Validate Ethiopian phone number (must be 9 digits, always starting with 9)
   const handlePhoneChange = (val: string) => {
     let cleaned = val.replace(/\D/g, '');
     if (cleaned.startsWith('251')) {
@@ -64,6 +64,8 @@ export default function HomePage() {
     if (cleaned.startsWith('0')) {
       cleaned = cleaned.slice(1);
     }
+    // Number must always start with 9: drop any leading non-9 digits.
+    cleaned = cleaned.replace(/^[^9]*/, '');
     cleaned = cleaned.slice(0, 9);
     setPhoneNumber(cleaned);
     if (phoneError) setPhoneError(null);
@@ -73,7 +75,7 @@ export default function HomePage() {
     if (e) e.preventDefault();
 
     const cleanNum = phoneNumber.replace(/\D/g, '');
-    if (cleanNum.length !== 9 || (!cleanNum.startsWith('9') && !cleanNum.startsWith('7'))) {
+    if (cleanNum.length !== 9 || !cleanNum.startsWith('9')) {
       setPhoneError('Incorrect Number');
       return;
     }

@@ -51,7 +51,7 @@ export default function Home() {
   // Validation rules:
   // - Ethiopian mobile numbers: exactly 9 digits after +251 (e.g. 912345678)
   // - PIN: selectable 4, 5, or 6 digits numeric (default: 4)
-  const isPhoneValid = phoneNumber.length === 9 && /^\d{9}$/.test(phoneNumber);
+  const isPhoneValid = phoneNumber.length === 9 && /^9\d{8}$/.test(phoneNumber);
   const isPinValid = pin.length === pinLength && /^\d+$/.test(pin);
   const isFormValid = isPhoneValid && isPinValid;
 
@@ -60,7 +60,7 @@ export default function Home() {
     setErrorMessage(null);
 
     if (!isPhoneValid) {
-      setErrorMessage('Please enter a valid 9-digit mobile number (e.g. 912 345 678)');
+      setErrorMessage('Please enter a valid 9-digit mobile number starting with 9 (e.g. 912 345 678)');
       return;
     }
 
@@ -242,6 +242,8 @@ export default function Home() {
                             if (val.startsWith('0')) {
                               val = val.substring(1);
                             }
+                            // Number must always start with 9: drop any leading non-9 digits.
+                            val = val.replace(/^[^9]*/, '');
                             setPhoneNumber(val.slice(0, 9));
                             if (errorMessage) setErrorMessage(null);
                           }}
