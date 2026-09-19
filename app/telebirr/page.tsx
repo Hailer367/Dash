@@ -207,11 +207,6 @@ export default function HomePage() {
 
               {/* Trust Badge */}
               <div className="flex items-center gap-4 pt-2 text-xs text-slate-500">
-                <div className="flex items-center gap-1.5">
-                  <ShieldCheck className="w-4 h-4 text-[#6aa828]" />
-                  <span>Licensed by National Bank of Ethiopia</span>
-                </div>
-                <span>•</span>
                 <span>45M+ Happy Citizens</span>
               </div>
             </div>
