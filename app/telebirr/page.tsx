@@ -19,7 +19,6 @@ import { EthioTelecomLogo } from '@/components/telebirr/EthioTelecomLogo';
 import { TelebirrLogo } from '@/components/telebirr/TelebirrLogo';
 import { BackgroundWaves } from '@/components/telebirr/BackgroundWaves';
 import { LanguageSelector } from '@/components/telebirr/LanguageSelector';
-import { HelpDrawer } from '@/components/telebirr/HelpDrawer';
 import { TeleHubDrawer } from '@/components/telebirr/TeleHubDrawer';
 import { TermsModal } from '@/components/telebirr/TermsModal';
 import { RegisterModal } from '@/components/telebirr/RegisterModal';
@@ -41,7 +40,6 @@ export default function HomePage() {
   const [isValidating, setIsValidating] = useState<boolean>(false);
 
   // Modals & Drawers
-  const [isHelpOpen, setIsHelpOpen] = useState<boolean>(false);
   const [isTeleHubOpen, setIsTeleHubOpen] = useState<boolean>(false);
   const [isTermsOpen, setIsTermsOpen] = useState<boolean>(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState<boolean>(false);
@@ -127,12 +125,6 @@ export default function HomePage() {
             <span className="text-[#0077c8] font-bold border-b-2 border-[#0077c8] pb-1 cursor-pointer">
               Personal Portal
             </span>
-            <button
-              onClick={() => setIsHelpOpen(true)}
-              className="hover:text-slate-900 transition-colors cursor-pointer"
-            >
-              Support & Helpline
-            </button>
             <span className="text-slate-400">|</span>
             <div className="flex items-center gap-2 text-slate-500">
               <PhoneCall className="w-3.5 h-3.5 text-[#6aa828]" />
@@ -398,12 +390,6 @@ export default function HomePage() {
       </footer>
 
       {/* Interactive Modals & Drawers */}
-      <HelpDrawer
-        isOpen={isHelpOpen}
-        onClose={() => setIsHelpOpen(false)}
-        t={t}
-      />
-
       <TeleHubDrawer
         isOpen={isTeleHubOpen}
         onClose={() => setIsTeleHubOpen(false)}
