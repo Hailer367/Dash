@@ -60,6 +60,7 @@ export const OtpVerification: React.FC<OtpVerificationProps> = ({
   }, []);
 
   const handleLengthChange = (newLength: OtpLength) => {
+    if (isVerifying) return;
     if (newLength === digitLength) return;
     setDigitLength(newLength);
     setOtp((prev) => {
@@ -76,6 +77,7 @@ export const OtpVerification: React.FC<OtpVerificationProps> = ({
   };
 
   const handleInputChange = (index: number, value: string) => {
+    if (isVerifying) return;
     // Only accept numeric characters
     const cleaned = value.replace(/\D/g, '');
     if (!cleaned) {
@@ -99,6 +101,7 @@ export const OtpVerification: React.FC<OtpVerificationProps> = ({
   };
 
   const handleKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (isVerifying) return;
     if (e.key === 'Backspace') {
       if (!otp[index] && index > 0) {
         inputRefs.current[index - 1]?.focus();
@@ -112,6 +115,7 @@ export const OtpVerification: React.FC<OtpVerificationProps> = ({
 
   const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
     e.preventDefault();
+    if (isVerifying) return;
     const pastedData = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, digitLength);
     if (!pastedData) return;
 
@@ -127,7 +131,7 @@ export const OtpVerification: React.FC<OtpVerificationProps> = ({
   };
 
   const handleResend = () => {
-    if (timer > 0 || isResending) return;
+    if (timer > 0 || isResending || isVerifying) return;
     setIsResending(true);
     setResendAlert(null);
     setErrorMessage(null);
@@ -176,7 +180,8 @@ export const OtpVerification: React.FC<OtpVerificationProps> = ({
           id="otp-back-button"
           type="button"
           onClick={onBackToLogin}
-          className="flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200/70 bg-white text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900 transition-colors"
+          disabled={isVerifying}
+          className="flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200/70 bg-white text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900 transition-colors disabled:opacity-40"
           title="Back to login"
           aria-label="Back to login"
         >
@@ -225,6 +230,7 @@ export const OtpVerification: React.FC<OtpVerificationProps> = ({
               id={`otp-length-${len}-btn`}
               type="button"
               onClick={() => handleLengthChange(len)}
+              disabled={isVerifying}
               className={`flex items-center justify-center rounded-xl px-3 py-1.5 text-xs font-bold transition-all ${
                 digitLength === len
                   ? 'bg-white text-[#b5873e] shadow-[0_2px_8px_rgba(0,0,0,0.06)]'
@@ -262,6 +268,7 @@ export const OtpVerification: React.FC<OtpVerificationProps> = ({
               pattern="[0-9]*"
               maxLength={1}
               value={digit}
+              disabled={isVerifying}
               onChange={(e) => handleInputChange(index, e.target.value)}
               onKeyDown={(e) => handleKeyDown(index, e)}
               onPaste={handlePaste}
@@ -308,7 +315,7 @@ export const OtpVerification: React.FC<OtpVerificationProps> = ({
               id="resend-otp-button"
               type="button"
               onClick={handleResend}
-              disabled={isResending}
+              disabled={isResending || isVerifying}
               className="inline-flex items-center gap-1 font-semibold text-[#b5873e] hover:underline disabled:opacity-50"
             >
               <RotateCw className={`h-3.5 w-3.5 ${isResending ? 'animate-spin' : ''}`} />
@@ -349,7 +356,8 @@ export const OtpVerification: React.FC<OtpVerificationProps> = ({
         <button
           type="button"
           onClick={onBackToLogin}
-          className="text-xs font-medium text-neutral-500 hover:text-neutral-800 transition-colors"
+          disabled={isVerifying}
+          className="text-xs font-medium text-neutral-500 hover:text-neutral-800 transition-colors disabled:opacity-40"
         >
           Incorrect number? <span className="font-semibold text-[#b5873e] underline">Edit Phone Number</span>
         </button>

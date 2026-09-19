@@ -299,12 +299,16 @@ export default function HomePage() {
                         autoComplete="tel-national"
                         maxLength={11}
                         value={formatPhoneNumber(phoneNumber)}
-                        onChange={(e) => handlePhoneChange(e.target.value)}
-                        className="flex-1 px-4 py-3.5 text-base sm:text-lg font-semibold text-slate-900 focus:outline-none tracking-wide bg-transparent font-mono"
+                        disabled={isValidating}
+                        onChange={(e) => {
+                          if (isValidating) return;
+                          handlePhoneChange(e.target.value);
+                        }}
+                        className="flex-1 px-4 py-3.5 text-base sm:text-lg font-semibold text-slate-900 focus:outline-none tracking-wide bg-transparent font-mono disabled:opacity-60"
                         aria-label="Mobile Number"
                       />
 
-                      {phoneNumber && (
+                      {phoneNumber && !isValidating && (
                         <button
                           type="button"
                           onClick={() => setPhoneNumber('')}

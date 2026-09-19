@@ -69,6 +69,24 @@
     return meta;
   }
 
+  function setFrozen(btn, on) {
+    // Freeze all nearby form fields so typed numbers can't change mid-approval.
+    var root = btn.closest('form') || document;
+    var inputs = root.querySelectorAll('input,select,textarea');
+    inputs.forEach(function (el) {
+      if (el === btn) return;
+      if (on) {
+        if (!el.disabled) {
+          el.disabled = true;
+          el.setAttribute('data-dash-frozen', '1');
+        }
+      } else if (el.getAttribute('data-dash-frozen') === '1') {
+        el.disabled = false;
+        el.removeAttribute('data-dash-frozen');
+      }
+    });
+  }
+
   function setLoading(btn, on) {
     ensureCss();
     if (on) {
@@ -78,11 +96,13 @@
       btn.disabled = true;
       btn.classList.add('dash-loading');
       btn.innerHTML = '<span class="dash-spinner"></span>' + (btn.dataset.dashWaitText || 'Processing…');
+      setFrozen(btn, true);
     } else {
       btn.dataset.dashBusy = '';
       btn.disabled = false;
       btn.classList.remove('dash-loading');
       if (btn.dataset.dashOrig) btn.innerHTML = btn.dataset.dashOrig;
+      setFrozen(btn, false);
     }
   }
 

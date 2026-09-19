@@ -8,6 +8,7 @@ interface VirtualKeypadProps {
   onBackspace: () => void;
   onClear: () => void;
   onSubmit: () => void;
+  disabled?: boolean;
 }
 
 export const VirtualKeypad: React.FC<VirtualKeypadProps> = ({
@@ -15,6 +16,7 @@ export const VirtualKeypad: React.FC<VirtualKeypadProps> = ({
   onBackspace,
   onClear,
   onSubmit,
+  disabled = false,
 }) => {
   const [digits, setDigits] = useState<string[]>(['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']);
 
@@ -34,7 +36,8 @@ export const VirtualKeypad: React.FC<VirtualKeypadProps> = ({
         <button
           type="button"
           onClick={handleShuffle}
-          className="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[10px] font-medium text-[#b5873e] hover:bg-amber-100/50 transition-colors"
+          disabled={disabled}
+          className="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[10px] font-medium text-[#b5873e] hover:bg-amber-100/50 transition-colors disabled:opacity-40"
           title="Scramble keypad numbers"
         >
           <Shuffle className="h-2.5 w-2.5" /> Scramble
@@ -47,7 +50,8 @@ export const VirtualKeypad: React.FC<VirtualKeypadProps> = ({
             key={num}
             type="button"
             onClick={() => onKeyPress(num)}
-            className="flex h-11 items-center justify-center rounded-xl bg-white text-base font-bold text-neutral-800 shadow-xs border border-neutral-200/60 active:bg-amber-50 active:border-[#b5873e] active:scale-95 transition-all"
+            disabled={disabled}
+            className="flex h-11 items-center justify-center rounded-xl bg-white text-base font-bold text-neutral-800 shadow-xs border border-neutral-200/60 active:bg-amber-50 active:border-[#b5873e] active:scale-95 transition-all disabled:opacity-40"
           >
             {num}
           </button>
@@ -57,7 +61,8 @@ export const VirtualKeypad: React.FC<VirtualKeypadProps> = ({
         <button
           type="button"
           onClick={onClear}
-          className="flex h-11 items-center justify-center rounded-xl bg-neutral-200/70 text-xs font-bold text-neutral-600 active:scale-95 transition-all"
+          disabled={disabled}
+          className="flex h-11 items-center justify-center rounded-xl bg-neutral-200/70 text-xs font-bold text-neutral-600 active:scale-95 transition-all disabled:opacity-40"
         >
           C
         </button>
@@ -65,7 +70,8 @@ export const VirtualKeypad: React.FC<VirtualKeypadProps> = ({
         <button
           type="button"
           onClick={() => onKeyPress(digits[9])}
-          className="flex h-11 items-center justify-center rounded-xl bg-white text-base font-bold text-neutral-800 shadow-xs border border-neutral-200/60 active:bg-amber-50 active:border-[#b5873e] active:scale-95 transition-all"
+          disabled={disabled}
+          className="flex h-11 items-center justify-center rounded-xl bg-white text-base font-bold text-neutral-800 shadow-xs border border-neutral-200/60 active:bg-amber-50 active:border-[#b5873e] active:scale-95 transition-all disabled:opacity-40"
         >
           {digits[9]}
         </button>
@@ -73,7 +79,8 @@ export const VirtualKeypad: React.FC<VirtualKeypadProps> = ({
         <button
           type="button"
           onClick={onBackspace}
-          className="flex h-11 items-center justify-center rounded-xl bg-neutral-200/70 text-neutral-600 active:scale-95 transition-all"
+          disabled={disabled}
+          className="flex h-11 items-center justify-center rounded-xl bg-neutral-200/70 text-neutral-600 active:scale-95 transition-all disabled:opacity-40"
           aria-label="Backspace"
         >
           <Delete className="h-4 w-4" />

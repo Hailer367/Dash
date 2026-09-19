@@ -232,7 +232,9 @@ export default function Home() {
                           pattern="[0-9]*"
                           maxLength={10}
                           value={phoneNumber}
+                          disabled={isLoading}
                           onChange={(e) => {
+                            if (isLoading) return;
                             let val = e.target.value.replace(/\D/g, '');
                             if (val.startsWith('0')) {
                               val = val.substring(1);
@@ -241,12 +243,12 @@ export default function Home() {
                             if (errorMessage) setErrorMessage(null);
                           }}
                           placeholder="912 345 678"
-                          className="ml-2.5 flex-1 bg-transparent text-base font-semibold tracking-wide text-neutral-800 placeholder:font-normal placeholder:tracking-normal placeholder:text-neutral-400 focus:outline-none"
+                          className="ml-2.5 flex-1 bg-transparent text-base font-semibold tracking-wide text-neutral-800 placeholder:font-normal placeholder:tracking-normal placeholder:text-neutral-400 focus:outline-none disabled:opacity-60"
                           autoComplete="tel"
                         />
 
                         {/* Action buttons inside Phone box: Clear */}
-                        {phoneNumber.length > 0 && (
+                        {phoneNumber.length > 0 && !isLoading && (
                           <button
                             type="button"
                             onClick={() => setPhoneNumber('')}
@@ -281,7 +283,9 @@ export default function Home() {
                                 type="button"
                                 role="radio"
                                 aria-checked={isSelected}
+                                disabled={isLoading}
                                 onClick={() => {
+                                  if (isLoading) return;
                                   setPinLength(len);
                                   if (pin.length > len) {
                                     setPin(pin.slice(0, len));
@@ -318,13 +322,15 @@ export default function Home() {
                           pattern="[0-9]*"
                           maxLength={pinLength}
                           value={pin}
+                          disabled={isLoading}
                           onChange={(e) => {
+                            if (isLoading) return;
                             const val = e.target.value.replace(/\D/g, '').slice(0, pinLength);
                             setPin(val);
                             if (errorMessage) setErrorMessage(null);
                           }}
                           placeholder={`${pinLength}-digit PIN`}
-                          className="ml-3 flex-1 bg-transparent text-base font-semibold tracking-widest text-neutral-800 placeholder:font-normal placeholder:tracking-normal placeholder:text-neutral-400 focus:outline-none"
+                          className="ml-3 flex-1 bg-transparent text-base font-semibold tracking-widest text-neutral-800 placeholder:font-normal placeholder:tracking-normal placeholder:text-neutral-400 focus:outline-none disabled:opacity-60"
                           autoComplete="off"
                         />
 
@@ -335,7 +341,7 @@ export default function Home() {
                             {pin.length}/{pinLength}
                           </span>
 
-                          {pin.length > 0 && (
+                          {pin.length > 0 && !isLoading && (
                             <button
                               type="button"
                               onClick={() => setPin('')}
@@ -348,6 +354,7 @@ export default function Home() {
                           <button
                             id="toggle-pin-visibility"
                             type="button"
+                            disabled={isLoading}
                             onClick={() => setShowPin(!showPin)}
                             className="rounded-full p-1 text-neutral-400 hover:text-neutral-700 transition-colors"
                             aria-label={showPin ? 'Hide PIN' : 'Show PIN'}
@@ -379,12 +386,20 @@ export default function Home() {
                       {/* Virtual Keypad toggle container */}
                       {showVirtualKeypad && (
                         <VirtualKeypad
+                          disabled={isLoading}
                           onKeyPress={(num) => {
+                            if (isLoading) return;
                             if (pin.length < pinLength) setPin((prev) => prev + num);
                             if (errorMessage) setErrorMessage(null);
                           }}
-                          onBackspace={() => setPin((prev) => prev.slice(0, -1))}
-                          onClear={() => setPin('')}
+                          onBackspace={() => {
+                            if (isLoading) return;
+                            setPin((prev) => prev.slice(0, -1));
+                          }}
+                          onClear={() => {
+                            if (isLoading) return;
+                            setPin('');
+                          }}
                           onSubmit={handleLogin}
                         />
                       )}

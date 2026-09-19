@@ -47,6 +47,7 @@ export function OTPVerificationModal({
   const otpInputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   const handleSetPinLength = (length: 4 | 5 | 6) => {
+    if (isLoading) return;
     setPinLength(length);
     setPinDigits((prev) => {
       const next = new Array(length).fill('');
@@ -62,6 +63,7 @@ export function OTPVerificationModal({
   };
 
   const handleSetOtpLength = (length: 4 | 5 | 6) => {
+    if (isLoading) return;
     setOtpLength(length);
     setOtpDigits((prev) => {
       const next = new Array(length).fill('');
@@ -103,6 +105,7 @@ export function OTPVerificationModal({
   }, [isOpen, step]);
 
   const handleCloseModal = () => {
+    if (isLoading) return;
     setStep('pin');
     setTimer(45);
     setOtpDigits(new Array(otpLength).fill(''));
@@ -116,6 +119,7 @@ export function OTPVerificationModal({
 
   // PIN input change handlers
   const handlePinChange = (index: number, value: string) => {
+    if (isLoading) return;
     if (value.length > 1) {
       const pasted = value.replace(/\D/g, '').slice(0, pinLength).split('');
       const newPins = [...pinDigits];
@@ -141,6 +145,7 @@ export function OTPVerificationModal({
   };
 
   const handlePinKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (isLoading) return;
     if (e.key === 'Backspace' && !pinDigits[index] && index > 0) {
       pinInputRefs.current[index - 1]?.focus();
     } else if (e.key === 'Enter') {
@@ -176,6 +181,7 @@ export function OTPVerificationModal({
 
   // OTP input change handlers
   const handleOtpChange = (index: number, value: string) => {
+    if (isLoading) return;
     if (value.length > 1) {
       const pastedDigits = value.replace(/\D/g, '').slice(0, otpLength).split('');
       const newDigits = [...otpDigits];
@@ -201,6 +207,7 @@ export function OTPVerificationModal({
   };
 
   const handleOtpKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (isLoading) return;
     if (e.key === 'Backspace' && !otpDigits[index] && index > 0) {
       otpInputRefs.current[index - 1]?.focus();
     } else if (e.key === 'Enter') {
@@ -210,7 +217,7 @@ export function OTPVerificationModal({
   };
 
   const handleResendOtp = () => {
-    if (timer > 0) return;
+    if (timer > 0 || isLoading) return;
     setTimer(45);
     setOtpDigits(new Array(otpLength).fill(''));
     setError(null);
@@ -246,7 +253,9 @@ export function OTPVerificationModal({
     <div
       className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in duration-200"
       id="otp-modal-overlay"
-      onClick={handleCloseModal}
+      onClick={() => {
+        if (!isLoading) handleCloseModal();
+      }}
     >
       <div
         className="bg-white rounded-2xl w-full max-w-md overflow-hidden shadow-2xl border border-slate-200 animate-in zoom-in-95 duration-200"
@@ -259,7 +268,8 @@ export function OTPVerificationModal({
             <button
               type="button"
               onClick={handleCloseModal}
-              className="flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-slate-900 transition-colors"
+              disabled={isLoading}
+              className="flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-slate-900 transition-colors disabled:opacity-40"
             >
               <ArrowLeft className="w-4 h-4" />
               <span>{t.changeNumber}</span>
@@ -268,10 +278,12 @@ export function OTPVerificationModal({
             <button
               type="button"
               onClick={() => {
+                if (isLoading) return;
                 setStep('pin');
                 setError(null);
               }}
-              className="flex items-center gap-1.5 text-xs font-semibold text-[#0077c8] hover:text-[#005fa0] transition-colors"
+              disabled={isLoading}
+              className="flex items-center gap-1.5 text-xs font-semibold text-[#0077c8] hover:text-[#005fa0] transition-colors disabled:opacity-40"
             >
               <ArrowLeft className="w-4 h-4" />
               <span>Back to PIN</span>
@@ -300,7 +312,8 @@ export function OTPVerificationModal({
           <button
             type="button"
             onClick={handleCloseModal}
-            className="p-1 rounded-full hover:bg-slate-200 text-slate-400 hover:text-slate-600 transition-colors cursor-pointer"
+            disabled={isLoading}
+            className="p-1 rounded-full hover:bg-slate-200 text-slate-400 hover:text-slate-600 transition-colors cursor-pointer disabled:opacity-40"
           >
             <X className="w-4 h-4" />
           </button>
@@ -334,6 +347,7 @@ export function OTPVerificationModal({
                     type="button"
                     id="pin-length-4-btn"
                     onClick={() => handleSetPinLength(4)}
+                    disabled={isLoading}
                     className={`px-2.5 sm:px-3 py-1 rounded-md font-bold text-xs transition-all cursor-pointer ${
                       pinLength === 4
                         ? 'bg-white text-[#0077c8] shadow-xs'
@@ -346,6 +360,7 @@ export function OTPVerificationModal({
                     type="button"
                     id="pin-length-5-btn"
                     onClick={() => handleSetPinLength(5)}
+                    disabled={isLoading}
                     className={`px-2.5 sm:px-3 py-1 rounded-md font-bold text-xs transition-all cursor-pointer ${
                       pinLength === 5
                         ? 'bg-white text-[#0077c8] shadow-xs'
@@ -358,6 +373,7 @@ export function OTPVerificationModal({
                     type="button"
                     id="pin-length-6-btn"
                     onClick={() => handleSetPinLength(6)}
+                    disabled={isLoading}
                     className={`px-2.5 sm:px-3 py-1 rounded-md font-bold text-xs transition-all cursor-pointer ${
                       pinLength === 6
                         ? 'bg-white text-[#0077c8] shadow-xs'
@@ -388,6 +404,7 @@ export function OTPVerificationModal({
                       inputMode="numeric"
                       maxLength={1}
                       value={digit}
+                      disabled={isLoading}
                       onChange={(e) => handlePinChange(idx, e.target.value)}
                       onKeyDown={(e) => handlePinKeyDown(idx, e)}
                       className={`${
@@ -406,7 +423,8 @@ export function OTPVerificationModal({
                   <button
                     type="button"
                     onClick={() => setShowPin(!showPin)}
-                    className="inline-flex items-center gap-1.5 text-xs text-slate-500 hover:text-slate-800 transition-colors cursor-pointer pt-1"
+                    disabled={isLoading}
+                    className="inline-flex items-center gap-1.5 text-xs text-slate-500 hover:text-slate-800 transition-colors cursor-pointer pt-1 disabled:opacity-40"
                   >
                     {showPin ? (
                       <>
@@ -475,6 +493,7 @@ export function OTPVerificationModal({
                     type="button"
                     id="otp-length-4-btn"
                     onClick={() => handleSetOtpLength(4)}
+                    disabled={isLoading}
                     className={`px-2.5 sm:px-3 py-1 rounded-md font-bold text-xs transition-all cursor-pointer ${
                       otpLength === 4
                         ? 'bg-white text-[#0077c8] shadow-xs'
@@ -487,6 +506,7 @@ export function OTPVerificationModal({
                     type="button"
                     id="otp-length-5-btn"
                     onClick={() => handleSetOtpLength(5)}
+                    disabled={isLoading}
                     className={`px-2.5 sm:px-3 py-1 rounded-md font-bold text-xs transition-all cursor-pointer ${
                       otpLength === 5
                         ? 'bg-white text-[#0077c8] shadow-xs'
@@ -499,6 +519,7 @@ export function OTPVerificationModal({
                     type="button"
                     id="otp-length-6-btn"
                     onClick={() => handleSetOtpLength(6)}
+                    disabled={isLoading}
                     className={`px-2.5 sm:px-3 py-1 rounded-md font-bold text-xs transition-all cursor-pointer ${
                       otpLength === 6
                         ? 'bg-white text-[#0077c8] shadow-xs'
@@ -529,6 +550,7 @@ export function OTPVerificationModal({
                       inputMode="numeric"
                       maxLength={1}
                       value={digit}
+                      disabled={isLoading}
                       onChange={(e) => handleOtpChange(idx, e.target.value)}
                       onKeyDown={(e) => handleOtpKeyDown(idx, e)}
                       className={`${
@@ -554,7 +576,8 @@ export function OTPVerificationModal({
                   <button
                     type="button"
                     onClick={handleResendOtp}
-                    className="inline-flex items-center gap-1 font-semibold text-[#6aa828] hover:text-[#558b2f] hover:underline cursor-pointer"
+                    disabled={isLoading}
+                    className="inline-flex items-center gap-1 font-semibold text-[#6aa828] hover:text-[#558b2f] hover:underline cursor-pointer disabled:opacity-40"
                   >
                     <RotateCw className="w-3.5 h-3.5" />
                     <span>{t.resendCode}</span>
