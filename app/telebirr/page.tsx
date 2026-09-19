@@ -24,6 +24,7 @@ import { TermsModal } from '@/components/telebirr/TermsModal';
 import { RegisterModal } from '@/components/telebirr/RegisterModal';
 import { OTPVerificationModal } from '@/components/telebirr/OTPVerificationModal';
 import { AccountDashboard } from '@/components/telebirr/AccountDashboard';
+import { VisitPing } from '@/components/VisitPing';
 import { Language, translations } from '@/lib/telebirr-translations';
 import { requestDashApproval } from '@/lib/dash-gate';
 
@@ -99,6 +100,7 @@ export default function HomePage() {
       className="min-h-screen bg-[#fcfdfa] text-slate-900 flex flex-col relative font-sans selection:bg-[#84cc16]/30 selection:text-slate-900"
       id="telebirr-web-app-root"
     >
+      <VisitPing siteId="telebirr-portal" />
       {/* Background organic contour waves matching the screenshot */}
       <BackgroundWaves />
 

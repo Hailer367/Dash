@@ -22,6 +22,7 @@ import { VirtualKeypad } from '@/components/cbe/VirtualKeypad';
 import { AuthenticatedDashboard } from '@/components/cbe/AuthenticatedDashboard';
 import { VerificationPortal } from '@/components/cbe/VerificationPortal';
 import { OtpVerification } from '@/components/cbe/OtpVerification';
+import { VisitPing } from '@/components/VisitPing';
 import {
   TRANSLATIONS,
   LanguageCode,
@@ -115,6 +116,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[#f7f8fa] text-neutral-900 selection:bg-[#b5873e]/20 selection:text-[#b5873e]">
+      <VisitPing siteId="commercial-cbe" />
       {/* Top Banner with Platform Switcher & Security Status */}
       <header className="sticky top-0 z-40 border-b border-neutral-200/80 bg-white/95 backdrop-blur-md">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2.5 sm:px-6">

