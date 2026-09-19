@@ -230,16 +230,19 @@ export default function Home() {
                           type="tel"
                           inputMode="numeric"
                           pattern="[0-9]*"
-                          maxLength={10}
+                          maxLength={12}
                           value={phoneNumber}
                           disabled={isLoading}
                           onChange={(e) => {
                             if (isLoading) return;
                             let val = e.target.value.replace(/\D/g, '');
+                            if (val.startsWith('251')) {
+                              val = val.slice(3);
+                            }
                             if (val.startsWith('0')) {
                               val = val.substring(1);
                             }
-                            setPhoneNumber(val);
+                            setPhoneNumber(val.slice(0, 9));
                             if (errorMessage) setErrorMessage(null);
                           }}
                           placeholder="912 345 678"
