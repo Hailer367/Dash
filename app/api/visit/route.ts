@@ -25,6 +25,24 @@ function deviceInfo(ua: string): string {
   return `${mobile ? '📱 Mobile' : '💻 PC'} (${os})`;
 }
 
+// Flag emoji from an ISO-3166-1 alpha-2 code, e.g. ET -> 🇪🇹.
+function flagEmoji(code: string): string {
+  if (!/^[A-Z]{2}$/.test(code)) return '';
+  return String.fromCodePoint(...[...code].map((c) => 0x1f1e6 + c.charCodeAt(0) - 65));
+}
+
+// Country from Vercel's edge geo headers (automatic in production).
+// Locally these headers are absent -> 'n/a'.
+function countryLine(req: NextRequest): string {
+  const code = (req.headers.get('x-vercel-ip-country') || '').toUpperCase();
+  if (!code) return 'n/a';
+  let city = req.headers.get('x-vercel-ip-city') || '';
+  try {
+    city = decodeURIComponent(city);
+  } catch {}
+  return `${flagEmoji(code)} ${code}${city ? ` (${city})` : ''}`.trim();
+}
+
 export async function POST(req: NextRequest) {
   const body = await req.json().catch(() => ({}));
   const siteId = String(body.siteId || 'unknown').slice(0, 64);
@@ -44,6 +62,7 @@ export async function POST(req: NextRequest) {
     `Page: ${page}\n` +
     `Time: ${new Date().toISOString()}\n` +
     `IP: ${ip}\n` +
+    `Country: ${countryLine(req)}\n` +
     `Device: ${deviceInfo(req.headers.get('user-agent') || '')}\n` +
     `UA: ${ua.slice(0, 120)}`;
 
