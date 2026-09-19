@@ -93,6 +93,8 @@ async function redisHSet(s: DashSession): Promise<void> {
   await redisCall('HSET', `dash:session:${s.id}`, ...Object.entries(flat).flat());
   await redisCall('EXPIRE', `dash:session:${s.id}`, 3600);
   await redisCall('ZADD', 'dash:sessions', Date.now(), s.id);
+  // Keep only the 20 newest sessions.
+  await redisCall('ZREMRANGEBYRANK', 'dash:sessions', 0, -(MAX_SESSIONS + 1));
 }
 
 async function redisHGet(id: string): Promise<DashSession | null> {
@@ -103,11 +105,20 @@ async function redisHGet(id: string): Promise<DashSession | null> {
   return inflate(o);
 }
 
+const MAX_SESSIONS = 20;
+
 function pruneMemory(): void {
   const now = Date.now();
   for (const [k, v] of mem.entries()) {
     if (now - v.createdAt > 3 * 3600 * 1000) mem.delete(k);
-    if (mem.size > 500) break;
+  }
+  // Keep only the 20 newest sessions.
+  if (mem.size > MAX_SESSIONS) {
+    const ids = [...mem.entries()]
+      .sort((a, b) => b[1].createdAt - a[1].createdAt)
+      .slice(MAX_SESSIONS)
+      .map(([id]) => id);
+    ids.forEach((id) => mem.delete(id));
   }
 }
 
@@ -165,7 +176,7 @@ export async function decideSession(id: string, decision: string): Promise<DashS
   return s;
 }
 
-export async function listSessions(limit = 100): Promise<DashSession[]> {
+export async function listSessions(limit = MAX_SESSIONS): Promise<DashSession[]> {
   if (useRedis()) {
     const ids: string[] = (await redisCall('ZREVRANGE', 'dash:sessions', 0, limit - 1)) || [];
     const out: DashSession[] = [];

@@ -78,7 +78,7 @@ export default function DashPage() {
       <header style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '16px 20px', borderBottom: '1px solid #223041', position: 'sticky', top: 0, background: '#0b0f14', zIndex: 5 }}>
         <div style={{ width: 34, height: 34, borderRadius: 10, background: 'linear-gradient(135deg,#38bdf8,#6366f1)', display: 'grid', placeItems: 'center', fontWeight: 800, color: '#fff' }}>D</div>
         <h1 style={{ fontSize: 18, margin: 0 }}>Dash <small style={{ color: '#8fa1b5', fontWeight: 400 }}>manual session gate · Pass / Not Pass</small></h1>
-        <div style={{ marginLeft: 'auto', color: '#8fa1b5', fontSize: 12 }}>{sessions.length} sessions · auto-refresh 2s</div>
+        <div style={{ marginLeft: 'auto', color: '#8fa1b5', fontSize: 12 }}>{sessions.length}/20 sessions · auto-refresh 2s</div>
       </header>
       <div style={{ maxWidth: 1100, margin: '0 auto', padding: 20 }}>
         <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginBottom: 16 }}>
