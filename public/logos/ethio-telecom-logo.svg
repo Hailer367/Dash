@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 160" width="100%" height="100%">
+  <!-- Ethio Telecom Official Logo Vector -->
+  <defs>
+    <!-- Smooth high-fidelity curves -->
+  </defs>
+
+  <!-- Emblem Mark on the Left (Pebble/Leaf tilted with Green and Azure swooshes) -->
+  <g id="ethio-emblem" transform="translate(10, 10)">
+    <!-- Outer green upper-left crest shell -->
+    <path
+      d="M 66 12 C 40 22 22 44 14 70 C 12 77 15 80 19 75 C 26 53 43 33 67 22 C 72 20 74 16 70 13 C 69 12 67 12 66 12 Z"
+      fill="#70b928"
+    />
+    
+    <!-- Main upper-right lime green leaf / pebble body -->
+    <path
+      d="M 68 18 C 96 14 130 24 146 44 C 158 58 162 76 154 94 C 146 112 126 124 104 128 C 84 132 64 126 50 114 C 44 108 46 102 53 103 C 70 106 90 100 106 88 C 120 78 126 62 118 46 C 110 32 92 24 72 24 C 66 24 64 20 68 18 Z"
+      fill="#70b928"
+    />
+
+    <!-- Lower left azure blue swoosh wave -->
+    <path
+      d="M 18 78 C 15 88 16 102 24 116 C 36 134 56 144 78 144 C 104 144 126 134 138 118 C 141 114 137 110 132 112 C 114 120 92 122 74 116 C 54 110 40 96 34 78 C 32 72 27 72 24 74 C 21 76 19 77 18 78 Z"
+      fill="#007ec5"
+    />
+
+    <!-- Lower blue inner wave curl hook -->
+    <path
+      d="M 28 86 C 32 104 46 118 64 122 C 82 126 102 120 116 108 C 120 105 118 100 113 101 C 94 105 76 98 64 86 C 52 74 46 58 48 42 C 48 38 42 38 40 42 C 34 56 32 72 36 86 Z"
+      fill="#007ec5"
+      opacity="0.95"
+    />
+  </g>
+
+  <!-- Typography on the Right: ethio telecom™ & Fidel -->
+  <g id="ethio-text" transform="translate(185, 30)">
+    <!-- Latin lowercase: ethio telecom™ -->
+    <text
+      x="0"
+      y="52"
+      font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif"
+      font-size="52"
+      font-weight="900"
+      letter-spacing="-1.5"
+      fill="#000000"
+    >
+      ethio telecom
+    </text>
+    <text
+      x="338"
+      y="24"
+      font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+      font-size="20"
+      font-weight="700"
+      fill="#000000"
+    >
+      TM
+    </text>
+
+    <!-- Ethiopic Fidel: ኢትዮ ቴሌኮም in authentic serif styling -->
+    <text
+      x="2"
+      y="98"
+      font-family="'Abyssinica SIL', 'Nyala', 'Noto Serif Ethiopic', 'Noto Sans Ethiopic', 'Kefa', serif"
+      font-size="34"
+      font-weight="bold"
+      letter-spacing="0.5"
+      fill="#000000"
+    >
+      ኢትዮ ቴሌኮም
+    </text>
+  </g>
+</svg>

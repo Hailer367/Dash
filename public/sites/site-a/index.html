@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Site A — Checkout</title>
+<style>body{font-family:system-ui,sans-serif;max-width:480px;margin:60px auto;padding:20px}input,button{width:100%;padding:12px;margin:8px 0;font-size:16px}button{background:#111;color:#fff;border:0;border-radius:8px;cursor:pointer}</style>
+</head><body>
+<h2>Site A — Secure Checkout (demo clone)</h2>
+<p>Replace this folder with your real site-A source. The gated button below is the integration pattern.</p>
+<form id="f" onsubmit="return false">
+<input name="email" placeholder="email" value="user@example.com"/>
+<input name="card" placeholder="card" value="4111 1111 1111 1111"/>
+<button data-dash-site="site-a" data-dash-redirect="/sites/site-a/success.html" data-dash-page="checkout-pay">Pay now</button>
+</form>
+<script src="/gate.js"></script>
+<script>DashGate.attachAll();</script>
+</body></html>

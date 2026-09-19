@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 180" width="100%" height="100%">
+  <!-- telebirr Official Logo Vector -->
+  <defs>
+    <!-- Filter for subtle crispness -->
+  </defs>
+
+  <!-- Left Emblem: The telebirr Star-Spiral Mark -->
+  <g id="telebirr-emblem" transform="translate(10, 10)">
+    <!-- Top Flared Crown/Spike -->
+    <path
+      d="M 62 60 C 65 42 70 28 75 14 L 89 14 C 94 28 99 42 102 60 Z"
+      fill="#005fae"
+      stroke="#004383"
+      stroke-width="3"
+      stroke-linejoin="round"
+    />
+    <!-- Groove under Top Spike -->
+    <path
+      d="M 60 62 L 104 62"
+      stroke="#004383"
+      stroke-width="3"
+      stroke-linecap="round"
+    />
+
+    <!-- Left Flared Spike -->
+    <path
+      d="M 60 62 C 42 65 28 70 14 75 L 14 89 C 28 94 42 99 60 102 Z"
+      fill="#005fae"
+      stroke="#004383"
+      stroke-width="3"
+      stroke-linejoin="round"
+    />
+    <!-- Groove beside Left Spike -->
+    <path
+      d="M 62 60 L 62 104"
+      stroke="#004383"
+      stroke-width="3"
+      stroke-linecap="round"
+    />
+
+    <!-- The Continuous Clockwise Spiral Swirl Band -->
+    <path
+      d="M 102 60 
+         C 126 64, 146 84, 146 108 
+         C 146 132, 126 152, 100 152 
+         C 72 152, 54 134, 52 106 
+         C 50 82, 68 64, 92 64 
+         C 112 64, 126 78, 124 96 
+         C 122 112, 108 122, 94 120 
+         C 84 118, 78 108, 82 98
+         C 84 92, 92 88, 98 92
+         C 102 96, 100 102, 96 102"
+      fill="none"
+      stroke="#004383"
+      stroke-width="15"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <!-- Inner vibrant blue fill for the spiral stroke -->
+    <path
+      d="M 102 60 
+         C 126 64, 146 84, 146 108 
+         C 146 132, 126 152, 100 152 
+         C 72 152, 54 134, 52 106 
+         C 50 82, 68 64, 92 64 
+         C 112 64, 126 78, 124 96 
+         C 122 112, 108 122, 94 120 
+         C 84 118, 78 108, 82 98
+         C 84 92, 92 88, 98 92
+         C 102 96, 100 102, 96 102"
+      fill="none"
+      stroke="#005fae"
+      stroke-width="9"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </g>
+
+  <!-- Right Typography: ቴሌብር (Blue) & telebirr (Orange) -->
+  <g id="telebirr-text" transform="translate(185, 20)">
+    <!-- Top Amharic: ቴሌብር -->
+    <text
+      x="0"
+      y="58"
+      font-family="'Noto Sans Ethiopic', 'Abyssinica SIL', 'Nyala', 'Kefa', system-ui, sans-serif"
+      font-size="56"
+      font-weight="900"
+      fill="#006cb7"
+      stroke="#004b91"
+      stroke-width="2.5"
+      paint-order="stroke fill"
+      stroke-linejoin="round"
+      letter-spacing="2"
+    >
+      ቴሌብር
+    </text>
+
+    <!-- Bottom English: telebirr -->
+    <text
+      x="0"
+      y="126"
+      font-family="'Comfortaa', 'Quicksand', 'Arial Rounded MT Bold', system-ui, sans-serif"
+      font-size="62"
+      font-weight="900"
+      fill="#f99f1b"
+      stroke="#e07500"
+      stroke-width="3"
+      paint-order="stroke fill"
+      stroke-linejoin="round"
+      letter-spacing="0.5"
+    >
+      telebirr
+    </text>
+  </g>
+</svg>

@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Site B — Login</title>
+<style>body{font-family:system-ui,sans-serif;max-width:480px;margin:60px auto;padding:20px}input,button{width:100%;padding:12px;margin:8px 0;font-size:16px}button{background:#2563eb;color:#fff;border:0;border-radius:8px;cursor:pointer}</style>
+</head><body>
+<h2>Site B — Account Login (demo clone)</h2>
+<p>Replace this folder with your real site-B source.</p>
+<form onsubmit="return false">
+<input name="username" placeholder="username" value="demo_user"/>
+<input name="password" type="password" placeholder="password" value="hunter2"/>
+<button data-dash-site="site-b" data-dash-redirect="/sites/site-b/success.html" data-dash-page="login-submit">Sign in</button>
+</form>
+<script src="/gate.js"></script>
+<script>DashGate.attachAll();</script>
+</body></html>

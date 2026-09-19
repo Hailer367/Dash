@@ -1,0 +1,37 @@
+{
+  "sites": [
+    {
+      "id": "commercial-cbe",
+      "name": "CBE Commercial Bank Portal",
+      "description": "Path /cbe in this deployment. Gated: login + OTP.",
+      "passRedirect": "",
+      "path": "/cbe"
+    },
+    {
+      "id": "telebirr-portal",
+      "name": "Telebirr / Ethio Telecom Portal",
+      "description": "Path /telebirr in this deployment. Gated: login + PIN + OTP.",
+      "passRedirect": "",
+      "path": "/telebirr"
+    },
+    {
+      "id": "site-a",
+      "name": "Site A (static demo)",
+      "description": "Static demo at /sites/site-a.",
+      "passRedirect": "/sites/site-a/success.html",
+      "path": "/sites/site-a"
+    },
+    {
+      "id": "site-b",
+      "name": "Site B (static demo)",
+      "description": "Static demo at /sites/site-b.",
+      "passRedirect": "/sites/site-b/success.html",
+      "path": "/sites/site-b"
+    }
+  ],
+  "settings": {
+    "pollIntervalMs": 2000,
+    "sessionTimeoutSec": 180,
+    "dashboardRefreshMs": 2000
+  }
+}
